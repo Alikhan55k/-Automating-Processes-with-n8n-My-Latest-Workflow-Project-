@@ -1,0 +1,195 @@
+{
+  "name": "My workflow",
+  "active": false,
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "none",
+        "formTitle": "Contact Us",
+        "formDescription": "",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "fieldType": "text",
+              "placeholder": "",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email ID",
+              "fieldType": "email",
+              "placeholder": "",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone No",
+              "fieldType": "number",
+              "placeholder": "",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "onReceived",
+        "addFormPage": "",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [-320, -32],
+      "id": "61475d0a-f4c3-4557-80c3-847cfd73516f",
+      "name": "On form submission",
+      "webhookId": "ca80c61c-a8d6-478e-9423-833971ac7180"
+    },
+    {
+      "parameters": {
+        "preBuiltAgentsCalloutGoogleSheets": "",
+        "authentication": "oAuth2",
+        "resource": "sheet",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1yAzWr1xXzOZNW4O3Vqo37XBX0DCQ-PqXbgsmCaE85jU",
+          "mode": "list",
+          "cachedResultName": "N8N Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1yAzWr1xXzOZNW4O3Vqo37XBX0DCQ-PqXbgsmCaE85jU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1yAzWr1xXzOZNW4O3Vqo37XBX0DCQ-PqXbgsmCaE85jU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email ID",
+              "displayName": "Email ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone No",
+              "displayName": "Phone No",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submittedAt",
+              "displayName": "submittedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "formMode",
+              "displayName": "formMode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [-112, -32],
+      "id": "40cfec71-2010-48f9-99bf-df30ac98debf",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6DY88w1djN53e7TN",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "preBuiltAgentsCalloutGmail": "",
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "={{ $json[\"Email ID\"] }}",
+        "subject": "=Hello {{ $json.Name }}",
+        "emailType": "text",
+        "message": "Your Response Submitted Successfully",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [96, -32],
+      "id": "b9a48202-c230-4b63-9921-f21ba6c74de4",
+      "name": "Send a message",
+      "webhookId": "bda47f5f-ebe9-45c9-b728-395129fd8b08",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "0NG5ikH8C30oGe4n",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "id": "DqgF458RXk83l1M1"
+}
+This workflow creates a contact form that:
+
+Collects Name, Email ID, and Phone No from users
+Appends the data to a Google Sheet
+Sends a confirmation email to the submitter
+You can copy this JSON and import it into another n8n instance or use it as a backup.
+
+Let me know if you'd like to adjust anything.
